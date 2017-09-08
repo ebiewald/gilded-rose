@@ -37,8 +37,13 @@ export class AppComponent {
   */
   updateValues(): void {
     for (let product of this.products) {
-      this.decreaseSellIn(product);
-      this.decraseQuality(product);
+      if(product.name === 'Aged Brie'){
+        this.decreaseSellIn(product);
+        this.increaseQuality(product);
+      } else if(product.name !== 'Sulfarus the Legendary Sword') {
+        this.decreaseSellIn(product);
+        this.decraseQuality(product);
+      }
     }
   }
 
@@ -49,6 +54,13 @@ export class AppComponent {
     if(product.sellIn > 0){
       product.sellIn--;
     }
+  }
+
+  /**
+   * Increase quality value.
+   */
+  private increaseQuality(product): void {
+    product.quality++;
   }
 
   /**
