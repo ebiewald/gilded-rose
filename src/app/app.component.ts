@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Product } from './product';
 
@@ -9,7 +9,19 @@ import { Product } from './product';
 })
 
 export class AppComponent {
+
   products = PRODUCTS;
+
+  /**
+   * On Init we sell all of the products to have
+   * random sell in and quality values.
+  */
+  ngOnInit(): void {
+    for (let product of this.products) {
+      product.sellIn = Math.floor(Math.random() * 50);
+      product.quality = Math.floor(Math.random() * 50);
+    }
+  }
 }
 
 const PRODUCTS: Product[] = [
