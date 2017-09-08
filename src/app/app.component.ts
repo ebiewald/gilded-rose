@@ -38,6 +38,7 @@ export class AppComponent {
   updateValues(): void {
     for (let product of this.products) {
       this.decreaseSellIn(product);
+      this.decraseQuality(product);
     }
   }
 
@@ -47,6 +48,22 @@ export class AppComponent {
   private decreaseSellIn(product): void {
     if(product.sellIn > 0){
       product.sellIn--;
+    }
+  }
+
+  /**
+   * Decrease quality value.
+   *
+   * If the product's sell in date is not 0, degrade quality by interval.
+   * If the product's sell in date is 0, degrade by twice the regular interval.
+   *
+   * @param {object} product Product object.
+   */
+  private decraseQuality(product): void {
+    if(product.sellIn === 0 && product.quality > 0) {
+      product.quality = product.quality - 2;
+    } else if(product.sellIn > 0 && product.quality > 0){
+      product.quality--;
     }
   }
 }
