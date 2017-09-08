@@ -40,9 +40,12 @@ export class AppComponent {
       if(product.name === 'Aged Brie'){
         this.decreaseSellIn(product);
         this.increaseQuality(product);
+      } else if(product.name === 'Conjured Shield') {
+        this.decreaseSellIn(product);
+        this.decraseQuality(product, 2);
       } else if(product.name !== 'Sulfarus the Legendary Sword') {
         this.decreaseSellIn(product);
-        this.decraseQuality(product);
+        this.decraseQuality(product, 1);
       }
     }
   }
@@ -70,12 +73,16 @@ export class AppComponent {
    * If the product's sell in date is 0, degrade by twice the regular interval.
    *
    * @param {object} product Product object.
+   * @param {number} interval Number with which to decrement quality by.
    */
-  private decraseQuality(product): void {
-    if(product.sellIn === 0 && product.quality > 0) {
-      product.quality = product.quality - 2;
-    } else if(product.sellIn > 0 && product.quality > 0){
-      product.quality--;
+  private decraseQuality(product, interval): void {
+    let valueBeforeSellIn = product.quality - interval;
+    let valueAfterSellIn = product.quality - (interval * 2);
+
+    if(product.sellIn > 0) {
+      product.quality = (valueBeforeSellIn > 0) ? valueBeforeSellIn : 0;
+    } else if(product.sellIn === 0) {
+      product.quality = (valueAfterSellIn > 0) ? valueAfterSellIn : 0;
     }
   }
 }
