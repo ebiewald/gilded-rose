@@ -40,18 +40,31 @@ export class AppComponent {
       if(product.name === 'Aged Brie'){
         this.decreaseSellIn(product);
         this.increaseQuality(product);
+      } else if(product.name === 'Backstage Pass') {
+        this.decreaseSellIn(product);
+        if(product.sellIn > 10) {
+          this.increaseQuality(product);
+        } else if(product.sellIn <= 10 && product.sellIn > 5) {
+          this.increaseQuality(product, 2);
+        } else if(product.sellIn <= 5 && product.sellIn > 0) {
+          this.increaseQuality(product, 3);
+        } else if(product.sellIn === 0) {
+          product.quality = 0;
+        }
       } else if(product.name === 'Conjured Shield') {
         this.decreaseSellIn(product);
         this.decraseQuality(product, 2);
       } else if(product.name !== 'Sulfarus the Legendary Sword') {
         this.decreaseSellIn(product);
-        this.decraseQuality(product, 1);
+        this.decraseQuality(product);
       }
     }
   }
 
   /**
    * Decrease sell in value.
+   *
+   * @param {object} product Product object.
    */
   private decreaseSellIn(product): void {
     if(product.sellIn > 0){
@@ -61,9 +74,12 @@ export class AppComponent {
 
   /**
    * Increase quality value.
+   *
+   * @param {object} product Product object.
+   * @param {number} interval Number with which to increase quality by.
    */
-  private increaseQuality(product): void {
-    product.quality++;
+  private increaseQuality(product, interval = 1): void {
+    product.quality = product.quality + interval;
   }
 
   /**
@@ -75,7 +91,7 @@ export class AppComponent {
    * @param {object} product Product object.
    * @param {number} interval Number with which to decrement quality by.
    */
-  private decraseQuality(product, interval): void {
+  private decraseQuality(product, interval = 1): void {
     let valueBeforeSellIn = product.quality - interval;
     let valueAfterSellIn = product.quality - (interval * 2);
 
