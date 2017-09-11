@@ -6,8 +6,8 @@ import { ProductService } from './product.service';
 @Component({
   selector: 'product',
   providers: [ProductService],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
 })
 
 export class ProductComponent implements OnInit {
@@ -42,8 +42,10 @@ export class ProductComponent implements OnInit {
   ageOneDay(): void {
     for (let product of this.products) {
 
+      // For all products we decrease the sellIn value.
       this.decreaseSellIn(product);
 
+      // For specific products we decrease or increase the quality by particular intervals.
       switch (product.name) {
         case 'Aged Brie':
           this.increaseQuality(product);

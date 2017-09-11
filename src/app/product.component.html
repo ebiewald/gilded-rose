@@ -3,18 +3,17 @@
 <ul>
   <li *ngFor="let product of products">
     <h2>{{product.name}}</h2>
-    <div>
+    <p>
       <label>Quality:</label>
       <span *ngIf="product.quality !== NaN; else elseBlock">{{product.quality}}</span>
       <ng-template #elseBlock>N/A</ng-template>
-    </div>
-    <div>
+    </p>
+    <p>
       <label>Sell Within:</label>
       <span *ngIf="product.sellIn !== NaN; else elseBlock">{{product.sellIn}} days</span>
       <ng-template #elseBlock>N/A</ng-template>
-    </div>
+    </p>
   </li>
 </ul>
 
 <button (click)="ageOneDay()">Age One Day</button>
-
