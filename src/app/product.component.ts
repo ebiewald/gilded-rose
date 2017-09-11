@@ -41,28 +41,33 @@ export class ProductComponent implements OnInit {
   */
   ageOneDay(): void {
     for (let product of this.products) {
-      if(product.name === 'Aged Brie'){
-        this.decreaseSellIn(product);
-        this.increaseQuality(product);
-      } else if(product.name === 'Backstage Pass') {
-        this.decreaseSellIn(product);
-        if(product.sellIn > 10) {
+
+      this.decreaseSellIn(product);
+
+      switch (product.name) {
+        case 'Aged Brie':
           this.increaseQuality(product);
-        } else if(product.sellIn <= 10 && product.sellIn > 5) {
-          this.increaseQuality(product, 2);
-        } else if(product.sellIn <= 5 && product.sellIn > 0) {
-          this.increaseQuality(product, 3);
-        } else if(product.sellIn === 0) {
-          product.quality = 0;
-        }
-      } else if(product.name === 'Conjured Shield') {
-        this.decreaseSellIn(product);
-        this.decraseQuality(product, 2);
-      } else if(product.name !== 'Sulfarus the Legendary Sword') {
-        this.decreaseSellIn(product);
-        this.decraseQuality(product);
+          break;
+        case 'Backstage Pass':
+          if(product.sellIn > 10) {
+            this.increaseQuality(product);
+          } else if(product.sellIn <= 10 && product.sellIn > 5) {
+            this.increaseQuality(product, 2);
+          } else if(product.sellIn <= 5 && product.sellIn > 0) {
+            this.increaseQuality(product, 3);
+          } else if(product.sellIn === 0) {
+            product.quality = 0;
+          }
+          break;
+        case 'Conjured Shield':
+          this.decraseQuality(product, 2);
+          break;
+        case 'Sulfarus the Legendary Sword':
+          break;
+        default:
+          this.decraseQuality(product);
+          break;
       }
-      //product.ageOneDay();
     }
   }
 
