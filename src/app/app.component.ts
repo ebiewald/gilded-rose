@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Product } from './product';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-root',
+  providers: [ProductService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  products = PRODUCTS;
+  products: Product[];
 
-  /**
-   * On Init we sell all of the products to have
-   * random sell in and quality values.
-  */
+  constructor(private productService: ProductService) { }
+
+  getProducts(): void {
+    this.productService.getProducts().then(products => this.products = products);
+  }
+
   ngOnInit(): void {
-    for (let product of this.products) {
-      product.sellIn = Math.floor(Math.random() * 50);
-      product.quality = Math.floor(Math.random() * 50);
-    }
+    this.getProducts();
   }
 
   /**
