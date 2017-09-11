@@ -20,12 +20,15 @@ export class ProductComponent implements OnInit {
     this.productService.getProducts().then(products => this.products = products);
   }
 
+  /**
+   * On init get the products from the product service.
+  */
   ngOnInit(): void {
     this.getProducts();
   }
 
   /**
-   * Update all the product sell in and quality values.
+   * Update all the product sell in and quality values as we age by a day.
    *
    * We have some custom behavior based on product type.
    * - “Aged Brie” actually increases in quality the older it gets and it never degrades.
@@ -36,7 +39,7 @@ export class ProductComponent implements OnInit {
    *   but quality drops to 0 after the concert.
    * - “Conjured” items degrade in quality twice as fast as normal items.
   */
-  updateValues(): void {
+  ageOneDay(): void {
     for (let product of this.products) {
       if(product.name === 'Aged Brie'){
         this.decreaseSellIn(product);

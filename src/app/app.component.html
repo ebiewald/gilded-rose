@@ -1,8 +1,20 @@
-<div *ngFor="let product of products">
-  <h2>{{product.name}}</h2>
-  <div><label>Quality: </label>{{product.quality}}</div>
-  <div><label>Sell In: </label>{{product.sellIn}}</div>
-</div>
+<h1>Available Products</h1>
 
-<button (click)="updateValues()">Update</button>
+<ul>
+  <li *ngFor="let product of products">
+    <h2>{{product.name}}</h2>
+    <div>
+      <label>Quality:</label>
+      <span *ngIf="product.quality !== NaN; else elseBlock">{{product.quality}}</span>
+      <ng-template #elseBlock>N/A</ng-template>
+    </div>
+    <div>
+      <label>Sell Within:</label>
+      <span *ngIf="product.sellIn !== NaN; else elseBlock">{{product.sellIn}} days</span>
+      <ng-template #elseBlock>N/A</ng-template>
+    </div>
+  </li>
+</ul>
+
+<button (click)="ageOneDay()">Age One Day</button>
 
